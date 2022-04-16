@@ -4,6 +4,7 @@ import React from 'react';
 import DoubleTab from './screens/doubleTab';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Tiktok from './screens/tiktok';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +13,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="DoubleTab" component={DoubleTab} />
-        <Tab.Screen name="Settings" component={DoubleTab} />
+        <Tab.Screen name="Tiktok" component={Tiktok} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
