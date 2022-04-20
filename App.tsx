@@ -5,15 +5,19 @@ import DoubleTab from './screens/doubleTab';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Tiktok from './screens/tiktok';
+import Food from './screens/food';
+
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar />
       <Tab.Navigator>
         <Tab.Screen name="DoubleTab" component={DoubleTab} />
         <Tab.Screen name="Tiktok" component={Tiktok} options={{ headerShown: false }} />
+        <Tab.Screen name="Food" component={Food} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
