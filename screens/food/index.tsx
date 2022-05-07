@@ -1,21 +1,58 @@
-import { View, Text, StyleSheet, FlatList, Dimensions, ScrollView, Platform, Image } from "react-native";
+import { View, Text, StyleSheet, FlatList, Dimensions, ScrollView, Platform, Image, Animated, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from 'react';
 import { menu1Data, menu2Data, menu3Data } from '../data/menuData'
-import VideoItem from "./videoItem";
+
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../../utils";
 import { StatusBar } from "expo-status-bar";
 import Menu from "./component/menu";
 import MenuItem from "./component/menuItem";
-
+import Icon from "react-native-vector-icons/Ionicons";
 
 
 export default function Food() {
     const [currentIndex, setCurrentIndex] = useState(0)
+
+    const bannerAnimationValue = useRef(new Animated.Value(0)).current;
+
+    const bannerAnimated = {
+        transform: [
+            {
+                scale: bannerAnimationValue.interpolate({
+                    inputRange: [-300, 0],
+                    outputRange: [2, 1],
+                    extrapolate: 'clamp',
+                }),
+            },
+        ],
+    }
+
+
     return <View style={styles.container} >
-        <View style={styles.bannerContainer}>
+        <TouchableOpacity
+            style={styles.searchButton}
+        >
+            <Icon style={{ color: 'white' }} size={32} name="search-outline"></Icon>
+        </TouchableOpacity>
+        <Animated.View style={[styles.bannerContainer, bannerAnimated]}>
             <Image style={styles.banner} source={require('../../assets/images/food-app/foodBanner.png')} />
-        </View>
-        <ScrollView>
+            <View
+                style={styles.gradient}
+            />
+        </Animated.View>
+        <ScrollView
+            onScroll={Animated.event(
+                [
+                    {
+                        nativeEvent: {
+                            contentOffset: { y: bannerAnimationValue }
+                        }
+                    }
+                ],
+                { useNativeDriver: false },
+            )}
+            scrollEventThrottle={30}
+
+        >
             <View style={styles.paddingForBanner} />
 
             <View style={styles.scrollViewContent}>
@@ -33,18 +70,18 @@ export default function Food() {
                     </View>
                 </View>
                 <Menu title="Recommended Menu">
-                    {menu1Data.map(item => (
-                        <MenuItem {...item} key={item.id} />
+                    {menu1Data.map((item, index) => (
+                        <MenuItem {...item} key={index} />
                     ))}
                 </Menu>
                 <Menu title="Crispy Chicken">
-                    {menu2Data.map(item => (
-                        <MenuItem {...item} key={item.id} />
+                    {menu2Data.map((item, index) => (
+                        <MenuItem {...item} key={index} />
                     ))}
                 </Menu>
                 <Menu title="Dessert">
-                    {menu3Data.map(item => (
-                        <MenuItem {...item} key={item.id} />
+                    {menu3Data.map((item, index) => (
+                        <MenuItem {...item} key={index} />
                     ))}
                 </Menu>
             </View>
@@ -84,7 +121,7 @@ const styles = StyleSheet.create({
                 shadowColor: '#a8bed2',
                 shadowOpacity: 1,
                 shadowRadius: 4,
-                shadowOfsset: {
+                shadowOffset: {
                     width: 2,
                     height: 2
                 }
@@ -130,4 +167,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         backgroundColor: 'white',
     },
+    gradient: {
+        position: 'absolute',
+        opacity: 0.1,
+        width: '100%',
+        backgroundColor: 'black',
+        height: 124,
+    },
+    searchButton: {
+        position: 'absolute',
+        zIndex: 100,
+        width: 48,
+        height: 48,
+        right: 0,
+        top: 48
+    }
 })

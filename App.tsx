@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Tiktok from './screens/tiktok';
 import Food from './screens/food';
+import DoubleChatZalo from './screens/doubleChatZalo';
 
 
 const Tab = createBottomTabNavigator();
@@ -16,6 +17,7 @@ export default function App() {
       <StatusBar />
       <Tab.Navigator>
         <Tab.Screen name="DoubleTab" component={DoubleTab} />
+        <Tab.Screen name="DoubleChatZalo" component={DoubleChatZalo} />
         <Tab.Screen name="Tiktok" component={Tiktok} options={{ headerShown: false }} />
         <Tab.Screen name="Food" component={Food} options={{ headerShown: false }} />
       </Tab.Navigator>
