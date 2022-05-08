@@ -1,17 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import DoubleTab from './screens/doubleTab';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Tiktok from './screens/tiktok';
 import Food from './screens/food';
 import DoubleChatZalo from './screens/doubleChatZalo';
+import { Onboarding } from './screens/onboarding';
 
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [isOnboarding, setOnboarding] = useState(false)
+
+  if (!isOnboarding) return <Onboarding handleOnboarding={() => setOnboarding(true)} />
+
   return (
     <NavigationContainer>
       <StatusBar />
