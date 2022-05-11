@@ -44,9 +44,11 @@ export default function AddButton(props: any) {
                 })
             }]
         }}>
-            <View style={{ backgroundColor: "#7F58FF", borderRadius: 20, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity style={{ backgroundColor: "#7F58FF", borderRadius: 20, width: 40, height: 40, justifyContent: 'center', alignItems: 'center' }}
+                onPress={() => props.navigation.navigate("FlatListAnimated")}
+            >
                 <Icon name="call-outline" size={20} color={"white"} />
-            </View>
+            </TouchableOpacity>
         </Animated.View>
         <Animated.View style={[styles.button, {
             transform: [
